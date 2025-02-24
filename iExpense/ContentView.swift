@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+struct User {
+    var firstName = "Balbo"
+    var lastName = "Baggins"
+}
+
 struct ContentView: View {
     var body: some View {
         VStack {
