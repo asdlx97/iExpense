@@ -14,8 +14,12 @@ import Observation
 }
 
 struct SecondView: View {
+    let name: String
+    
     var body: some View {
         Text("Second View")
+            .font(.title)
+        Text("Hello, \(name) welcome to this new sheet!")
     }
 }
 
@@ -37,7 +41,7 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $showingSheet) {
                     //contents of the sheet
-                    SecondView()
+                    SecondView(name: "Arno")
                 }
             }
         }
