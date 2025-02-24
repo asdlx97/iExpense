@@ -21,6 +21,8 @@ struct SecondView: View {
 
 struct ContentView: View {
     @State private var user = User()
+    //boolean to track state wheter sheet is showing
+    @State private var showingSheet = false
     var body: some View {
         VStack {
             Section {
@@ -31,7 +33,11 @@ struct ContentView: View {
             }
             Section {
                 Button("Show sheet") {
-                    // show sheet
+                    showingSheet.toggle()
+                }
+                .sheet(isPresented: $showingSheet) {
+                    //contents of the sheet
+                    SecondView()
                 }
             }
         }
