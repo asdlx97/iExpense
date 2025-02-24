@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class User {
+@Observable class User {
     var firstName = "Balbo"
     var lastName = "Baggins"
 }
