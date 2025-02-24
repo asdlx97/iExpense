@@ -13,14 +13,27 @@ import Observation
     var lastName = "Baggins"
 }
 
+struct SecondView: View {
+    var body: some View {
+        Text("Second View")
+    }
+}
+
 struct ContentView: View {
     @State private var user = User()
     var body: some View {
         VStack {
-            Text("Your name is \(user.firstName) \(user.lastName)")
-            
-            TextField("Your first name", text: $user.firstName)
-            TextField("Your last name", text: $user.lastName)
+            Section {
+                Text("Your name is \(user.firstName) \(user.lastName)")
+                
+                TextField("Your first name", text: $user.firstName)
+                TextField("Your last name", text: $user.lastName)
+            }
+            Section {
+                Button("Show sheet") {
+                    // show sheet
+                }
+            }
         }
         .padding()
     }
