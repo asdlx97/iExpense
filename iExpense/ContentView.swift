@@ -15,11 +15,15 @@ import Observation
 
 struct SecondView: View {
     let name: String
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Text("Second View")
             .font(.title)
         Text("Hello, \(name) welcome to this new sheet!")
+        Button("Dismiss") {
+            dismiss()
+        }
     }
 }
 
@@ -43,6 +47,7 @@ struct ContentView: View {
                     //contents of the sheet
                     SecondView(name: "Arno")
                 }
+                
             }
         }
         .padding()
