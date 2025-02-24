@@ -38,21 +38,27 @@ struct OnDeleteView: View {
 
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(numbers, id: \.self) {
-                    Text("Row \($0)")
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(numbers, id: \.self) {
+                        Text("Row \($0)")
+                    }
+                    .onDelete(perform: removeRows)
                 }
-                .onDelete(perform: removeRows)
+                
+                Button("Add number") {
+                    numbers.append(currentNumber)
+                    currentNumber += 1
+                }
+                Button("Dismiss") {
+                    dismiss()
+                }
             }
-            
-            Button("Add number") {
-                numbers.append(currentNumber)
-                currentNumber += 1
-            }
-            Button("Dismiss") {
-                dismiss()
-            }
+            .toolbar {
+                EditButton()
+        }
+        
         }
     }
 }
