@@ -27,19 +27,46 @@ struct SecondView: View {
     }
 }
 
+struct OnDeleteView: View {
+    @State private var numbers = [Int]()
+    @State private var currentNumber = 1
+    @Environment(\.dismiss) var dismiss
+
+    
+    var body: some View {
+        VStack {
+            List {
+                ForEach(numbers, id: \.self) {
+                    Text("Row \($0)")
+                }
+            }
+            
+            Button("Add number") {
+                numbers.append(currentNumber)
+                currentNumber += 1
+            }
+            Button("Dismiss") {
+                dismiss()
+            }
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var user = User()
     //boolean to track state wheter sheet is showing
     @State private var showingSheet = false
+    @State private var showLearningSheet = false
     var body: some View {
         VStack {
-            Section {
+            Section ("Using @State with classes and sharing State with @Observable"){
                 Text("Your name is \(user.firstName) \(user.lastName)")
                 
                 TextField("Your first name", text: $user.firstName)
                 TextField("Your last name", text: $user.lastName)
             }
-            Section {
+            .padding()
+            Section ("Showing and hiding views") {
                 Button("Show sheet") {
                     showingSheet.toggle()
                 }
@@ -49,6 +76,16 @@ struct ContentView: View {
                 }
                 
             }
+            .padding()
+            Section ("Deleting items using onDelete()") {
+                Button("Show learning sheet") {
+                    showLearningSheet.toggle()
+                }
+                .sheet(isPresented: $showLearningSheet) {
+                    OnDeleteView()
+                }
+            }
+            
         }
         .padding()
     }
