@@ -65,7 +65,8 @@ struct OnDeleteView: View {
 
 struct UserDefaultsView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var tapCount = 0
+    // make the tapCount property read the value back from UserDefaults using same string key "Tap"
+    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
     var body: some View {
         NavigationStack {
             VStack {
@@ -73,6 +74,10 @@ struct UserDefaultsView: View {
                 
                 Button("Tap count: \(tapCount)") {
                     tapCount += 1
+                    // .standard is the build-in instance for UserDefault
+                    // The single set() method accepts any kind of data
+                    // Case-sensitive string "tap" to name our data
+                    UserDefaults.standard.set(tapCount, forKey: "Tap")
                 }
                 
                 Button("Dismiss") {
