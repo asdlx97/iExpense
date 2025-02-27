@@ -65,11 +65,15 @@ struct OnDeleteView: View {
 
 struct UserDefaultsView: View {
     @Environment(\.dismiss) var dismiss
-
+    @State private var tapCount = 0
     var body: some View {
         NavigationStack {
             VStack {
                 Text("UserDefaultsView")
+                
+                Button("Tap count: \(tapCount)") {
+                    tapCount += 1
+                }
                 
                 Button("Dismiss") {
                     dismiss()
