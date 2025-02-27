@@ -90,12 +90,25 @@ struct UserDefaultsView: View {
     }
 }
 
+struct ArchiveWithCodableView: View {
+    
+    struct User {
+        let firstName: String
+        let lastName: String
+    }
+    
+    var body: some View {
+        Text("Archiving with Codable")
+    }
+}
+
 struct ContentView: View {
     @State private var user = User()
     //boolean to track state wheter sheet is showing
     @State private var showingSheet = false
     @State private var showLearningSheet = false
     @State private var showUserDefaultsSheet = false
+    @State private var showArchiveWithCodableSheet = false
     var body: some View {
         VStack {
             Section ("Using @State with classes and sharing State with @Observable"){
@@ -131,6 +144,15 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $showUserDefaultsSheet) {
                     UserDefaultsView()
+                }
+            }
+            .padding()
+            Section("Archive with Codable") {
+                Button("Show ArchiveWithCodable sheet") {
+                    showArchiveWithCodableSheet.toggle()
+                }
+                .sheet(isPresented: $showArchiveWithCodableSheet) {
+                    ArchiveWithCodableView()
                 }
             }
             .padding()
