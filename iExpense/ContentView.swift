@@ -63,11 +63,29 @@ struct OnDeleteView: View {
     }
 }
 
+struct UserDefaultsView: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Text("UserDefaultsView")
+                
+                Button("Dismiss") {
+                    dismiss()
+            }
+        }
+        
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var user = User()
     //boolean to track state wheter sheet is showing
     @State private var showingSheet = false
     @State private var showLearningSheet = false
+    @State private var showUserDefaultsSheet = false
     var body: some View {
         VStack {
             Section ("Using @State with classes and sharing State with @Observable"){
@@ -96,6 +114,16 @@ struct ContentView: View {
                     OnDeleteView()
                 }
             }
+            .padding()
+            Section("Storing user settings with userDefaults") {
+                Button("Show userDefaults sheet") {
+                    showUserDefaultsSheet.toggle()
+                }
+                .sheet(isPresented: $showUserDefaultsSheet) {
+                    UserDefaultsView()
+                }
+            }
+            .padding()
             
         }
         .padding()
