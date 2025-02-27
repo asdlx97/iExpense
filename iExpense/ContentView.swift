@@ -66,7 +66,8 @@ struct OnDeleteView: View {
 struct UserDefaultsView: View {
     @Environment(\.dismiss) var dismiss
     // make the tapCount property read the value back from UserDefaults using same string key "Tap"
-    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+    //@State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+    @AppStorage("tapCount") private var tapCount = 0 // This works exactly like @State but let's us ignore UserDefaults, here to we use a string key name to store the data, which can be anything and doesn't have to match the property name
     var body: some View {
         NavigationStack {
             VStack {
@@ -77,7 +78,7 @@ struct UserDefaultsView: View {
                     // .standard is the build-in instance for UserDefault
                     // The single set() method accepts any kind of data
                     // Case-sensitive string "tap" to name our data
-                    UserDefaults.standard.set(tapCount, forKey: "Tap")
+                    //UserDefaults.standard.set(tapCount, forKey: "Tap") When using the @AppStorage property wrapper this line isn't needed anymore
                 }
                 
                 Button("Dismiss") {
