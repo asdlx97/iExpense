@@ -92,10 +92,12 @@ struct UserDefaultsView: View {
 
 struct ArchiveWithCodableView: View {
     
-    struct User {
+    struct User: Codable {
         let firstName: String
         let lastName: String
     }
+    
+    @State private var user = User(firstName: "Arno", lastName: "Delalieux")
     
     var body: some View {
         Text("Archiving with Codable")
