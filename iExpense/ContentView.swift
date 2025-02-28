@@ -93,14 +93,30 @@ struct UserDefaultsView: View {
 struct ArchiveWithCodableView: View {
     
     struct User: Codable {
-        let firstName: String
-        let lastName: String
+        var firstName: String
+        var lastName: String
     }
     
     @State private var user = User(firstName: "Arno", lastName: "Delalieux")
     
     var body: some View {
-        Text("Archiving with Codable")
+        NavigationStack {
+            VStack {
+                Text("Archiving with Codable")
+                    .font(.title)
+                Text("This is \(user.firstName)")
+                TextField("Your first name", text: $user.firstName)
+
+                Button("Save User") {
+                    let encoder = JSONEncoder()
+                    
+                    if let data = try? encoder.encode(user) {
+                        UserDefaults.standard.set(data, forKey: "UserData")
+                    }
+                }
+            }
+        }
+        
     }
 }
 
