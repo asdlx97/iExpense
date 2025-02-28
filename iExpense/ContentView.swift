@@ -8,9 +8,23 @@
 import SwiftUI
 import Observation
 
-@Observable class User {
-    var firstName = "Balbo"
-    var lastName = "Baggins"
+
+
+struct FirstView: View {
+    @State private var user = User()
+    @Observable class User {
+        var firstName = "Balbo"
+        var lastName = "Baggins"
+    }
+    var body: some View {
+        Section ("Using @State with classes and sharing State with @Observable"){
+            Text("Your name is \(user.firstName) \(user.lastName)")
+            
+            TextField("Your first name", text: $user.firstName)
+            TextField("Your last name", text: $user.lastName)
+        }
+        .padding()
+    }
 }
 
 struct SecondView: View {
@@ -120,27 +134,36 @@ struct ArchiveWithCodableView: View {
     }
 }
 
-struct ContentView: View {
-    @State private var user = User()
+struct LearningView: View {
     //boolean to track state wheter sheet is showing
-    @State private var showingSheet = false
+    @State private var showingFirstSheet = false
+    @State private var showingSecondSheet = false
     @State private var showLearningSheet = false
     @State private var showUserDefaultsSheet = false
     @State private var showArchiveWithCodableSheet = false
     var body: some View {
+        
         VStack {
-            Section ("Using @State with classes and sharing State with @Observable"){
-                Text("Your name is \(user.firstName) \(user.lastName)")
+            Text("What to know to make this App")
+                .font(.title)
+            
+            Section ("Using @State with classes and sharing State with @Observable") {
+                Button("Show sheet") {
+                    showingFirstSheet.toggle()
+                }
+                .sheet(isPresented: $showingFirstSheet) {
+                    //contents of the sheet
+                    FirstView()
+                }
                 
-                TextField("Your first name", text: $user.firstName)
-                TextField("Your last name", text: $user.lastName)
             }
             .padding()
+            
             Section ("Showing and hiding views") {
                 Button("Show sheet") {
-                    showingSheet.toggle()
+                    showingSecondSheet.toggle()
                 }
-                .sheet(isPresented: $showingSheet) {
+                .sheet(isPresented: $showingSecondSheet) {
                     //contents of the sheet
                     SecondView(name: "Arno")
                 }
@@ -175,6 +198,26 @@ struct ContentView: View {
             }
             .padding()
             
+        }
+        .padding()
+    }
+        
+    }
+
+
+struct ContentView: View {
+    @State var showLearningView = false
+    
+    var body: some View {
+        Text("Hello")
+        
+        Section("What to know for this App") {
+            Button("Check what we learned") {
+                showLearningView.toggle()
+            }
+            .sheet(isPresented: $showLearningView) {
+                LearningView()
+            }
         }
         .padding()
     }
