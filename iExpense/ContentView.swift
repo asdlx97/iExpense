@@ -207,9 +207,18 @@ struct LearningView: View {
 
 struct ContentView: View {
     @State var showLearningView = false
+    // create an instance of our Expenses() class
+    @State private var expenses = Expenses()
     var body: some View {
-        Text("Hello")
-        
+        NavigationStack {
+            List {
+                // tells the `ForEach` to identify each expense item uniquely by its name, then prints the name out as the list row.
+                ForEach(expenses.items, id:\.name) { item in
+                    Text (item.name)
+                }
+            }
+            .navigationTitle("iExpense")
+        }
         Section("What to know for this App") {
             Button("Check what we learned") {
                 showLearningView.toggle()
