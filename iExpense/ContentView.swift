@@ -209,6 +209,11 @@ struct ContentView: View {
     @State var showLearningView = false
     // create an instance of our Expenses() class
     @State private var expenses = Expenses()
+    
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -216,6 +221,7 @@ struct ContentView: View {
                 ForEach(expenses.items, id:\.name) { item in
                     Text (item.name)
                 }
+                .onDelete(perform: removeItems)
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -224,7 +230,9 @@ struct ContentView: View {
                     expenses.items.append(expense)
                 }
             }
+            
         }
+        
         Section("What to know for this App") {
             Button("Check what we learned") {
                 showLearningView.toggle()
