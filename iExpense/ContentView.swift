@@ -218,6 +218,12 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("iExpense")
+            .toolbar {
+                Button("Add Expense", systemImage: "plus") {
+                    let expense = ExpenseItem(name: "Test", type: "personal", amount: 5)
+                    expenses.items.append(expense)
+                }
+            }
         }
         Section("What to know for this App") {
             Button("Check what we learned") {
