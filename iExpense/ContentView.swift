@@ -207,7 +207,6 @@ struct LearningView: View {
 
 struct ContentView: View {
     @State var showLearningView = false
-    
     var body: some View {
         Text("Hello")
         
