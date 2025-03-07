@@ -218,7 +218,7 @@ struct ContentView: View {
         NavigationStack {
             List {
                 // tells the `ForEach` to identify each expense item uniquely by its name, then prints the name out as the list row.
-                ForEach(expenses.items, id:\.id) { item in
+                ForEach(expenses.items) { item in
                     Text (item.name)
                 }
                 .onDelete(perform: removeItems)
