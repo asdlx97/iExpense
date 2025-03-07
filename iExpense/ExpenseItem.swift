@@ -9,6 +9,8 @@ import SwiftUI
 
 // a struct to represent a single item of expense
 struct ExpenseItem {
+    //let id: UUID() //this would mean we have to generate an UUID by hand
+    let id = UUID() //this generates the UUID automatically, watch the equal sign
     let name: String
     let type: String
     let amount: Double
